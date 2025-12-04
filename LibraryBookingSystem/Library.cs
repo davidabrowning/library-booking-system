@@ -12,7 +12,7 @@
 
         public Book FindBookByTitle(string title)
         {
-            throw new NotImplementedException();
+            return _books.Where(b => b.Title.ToLower() == title.ToLower()).FirstOrDefault();
         }
 
         public void LoanBook(string isbn)

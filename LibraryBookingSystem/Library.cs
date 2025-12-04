@@ -7,7 +7,7 @@
 
         public void AddBook(Book book)
         {
-            throw new NotImplementedException();
+            _books.Add(book);
         }
 
         public Book FindBookByTitle(string title)

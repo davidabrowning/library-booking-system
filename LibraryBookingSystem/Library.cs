@@ -18,9 +18,16 @@
             return foundBook;
         }
 
-        public void LoanBook(string isbn)
+        public Book LoanBook(string isbn)
         {
-            throw new NotImplementedException();
+            Book? loanedBook = _books
+                .Where(b => b.ISBN == isbn)
+                .Where(b => b.IsLoaned == false)
+                .FirstOrDefault();
+            if (loanedBook == null)
+                throw new InvalidOperationException();
+            loanedBook.Loan();
+            return loanedBook;
         }
 
         public void ReturnBook(string isbn)

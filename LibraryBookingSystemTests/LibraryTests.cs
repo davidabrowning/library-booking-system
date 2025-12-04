@@ -46,5 +46,52 @@ namespace LibraryBookingSystemTests
             // Act and assert
             Assert.ThrowsAny<Exception>(() => library.FindBookByTitle("stora boken om barn"));
         }
+
+        [Fact]
+        public void LoanBook_ReturnsALoanedBook()
+        {
+            // Arrange
+            Library library = new();
+            Book book = new() { Title = "Joy at Work", ISBN = "11993322" };
+            library.AddBook(book);
+
+            // Act
+            Book loanedBook = library.LoanBook(book.ISBN);
+
+            // Assert
+            Assert.True(loanedBook.IsLoaned);
+        }
+
+        [Fact]
+        public void LoanBook_IncreasedNumberOfLoanedBooksByOne()
+        {
+            // Arrange
+            Library library = new();
+            Book book1 = new() { ISBN = "123" };
+            Book book2 = new() { ISBN = "456" };
+            library.AddBook(book1);
+            library.AddBook(book2);
+            int initialLoanedBookCount = library.Books.Where(b => b.IsLoaned == true).Count();
+
+            // Act
+            library.LoanBook(book1.ISBN);
+            int finalLoanedBookCount = library.Books.Where(b => b.IsLoaned == true).Count();
+
+            // Assert
+            Assert.Equal(initialLoanedBookCount + 1, finalLoanedBookCount);
+        }
+
+        [Fact]
+        public void LoanBook_ThrowsException_IfOnlyMatchingBookIsAlreadyLoaned()
+        {
+            // Arrange
+            Library library = new();
+            Book book = new() { ISBN = "123" };
+            library.AddBook(book);
+            library.LoanBook(book.ISBN);
+
+            // Act and assert
+            Assert.ThrowsAny<Exception>(() => library.LoanBook(book.ISBN));
+        }
     }
 }

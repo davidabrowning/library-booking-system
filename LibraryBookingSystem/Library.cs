@@ -2,7 +2,7 @@
 {
     public class Library
     {
-        private IRepository<Book> _bookRepository;
+        private readonly IRepository<Book> _bookRepository;
         public IEnumerable<Book> Books { get { return _bookRepository.GetAll(); } }
 
         public Library(IRepository<Book> bookRepository)

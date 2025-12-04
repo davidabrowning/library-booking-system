@@ -32,12 +32,25 @@ namespace LibraryBookingSystemTests
         {
             // Arrange
             Book book = new();
-
-            // Act
             book.Loan();
 
-            // Assert
+            // Act and assert
             Assert.ThrowsAny<Exception>(() => book.Loan());
         }
+
+        [Fact]
+        public void IsLoaned_IsFalse_AfterReturn()
+        {
+            // Arrange
+            Book book = new();
+            book.Loan();
+
+            // Act
+            book.Return();
+
+            // Assert
+            Assert.False(book.IsLoaned);
+        }
+        
     }
 }

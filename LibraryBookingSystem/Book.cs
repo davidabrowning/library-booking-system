@@ -14,7 +14,7 @@
         }
         public void Return()
         {
-            throw new NotImplementedException();
+            IsLoaned = false;
         }
     }
 }

@@ -26,5 +26,18 @@ namespace LibraryBookingSystemTests
             // Assert
             Assert.True(book.IsLoaned);
         }
+
+        [Fact]
+        public void Loan_ThrowsException_IfBookIsAlreadyLoaned()
+        {
+            // Arrange
+            Book book = new();
+
+            // Act
+            book.Loan();
+
+            // Assert
+            Assert.ThrowsAny<Exception>(() => book.Loan());
+        }
     }
 }

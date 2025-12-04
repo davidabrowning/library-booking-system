@@ -8,6 +8,8 @@
         public bool IsLoaned { get; set; }
         public void Loan()
         {
+            if (IsLoaned)
+                throw new InvalidOperationException();
             IsLoaned = true;
         }
         public void Return()

@@ -93,5 +93,26 @@ namespace LibraryBookingSystemTests
             // Act and assert
             Assert.ThrowsAny<Exception>(() => library.LoanBook(book.ISBN));
         }
+
+        [Fact]
+        public void LoanBook_CanLoanThreeTimes_IfThreeCopiesOfSameISBNExist()
+        {
+            // Arrange
+            Library library = new();
+            Book targetBook = new() { ISBN = "123" };
+            Book extraCopy1 = new() { ISBN = "123" };
+            Book extraCopy2 = new() { ISBN = "123" };
+            library.AddBook(targetBook);
+            library.AddBook(extraCopy1);
+            library.AddBook(extraCopy2);
+
+            // Act
+            library.LoanBook(targetBook.ISBN);
+            library.LoanBook(targetBook.ISBN);
+            var finalResult = library.LoanBook(targetBook.ISBN);
+
+            // Assert
+            Assert.IsType<Book>(finalResult);
+        }
     }
 }

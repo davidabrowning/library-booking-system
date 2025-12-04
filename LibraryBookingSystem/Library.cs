@@ -29,10 +29,5 @@
             loanedBook.Loan();
             return loanedBook;
         }
-
-        public void ReturnBook(string isbn)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -36,5 +36,15 @@ namespace LibraryBookingSystemTests
             // Assert
             Assert.Equal(uploadedBook2.ISBN, returnedBook.ISBN);
         }
+
+        [Fact]
+        public void FindBookByTitle_ThrowsException_IfBookNotFound()
+        {
+            // Arrange
+            Library library = new();
+
+            // Act and assert
+            Assert.ThrowsAny<Exception>(() => library.FindBookByTitle("stora boken om barn"));
+        }
     }
 }

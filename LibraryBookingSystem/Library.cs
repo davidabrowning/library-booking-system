@@ -12,7 +12,10 @@
 
         public Book FindBookByTitle(string title)
         {
-            return _books.Where(b => b.Title.ToLower() == title.ToLower()).FirstOrDefault();
+            Book? foundBook = _books.Where(b => b.Title.ToLower() == title.ToLower()).FirstOrDefault();
+            if (foundBook == null)
+                throw new InvalidOperationException();
+            return foundBook;
         }
 
         public void LoanBook(string isbn)

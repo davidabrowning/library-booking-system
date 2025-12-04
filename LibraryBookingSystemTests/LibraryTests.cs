@@ -8,21 +8,21 @@ namespace LibraryBookingSystemTests
         public void BookCount_IncreasesByOne_AfterAddingBook()
         {
             // Arrange
-            Library library = new();
-            int initialBookCount = library.Books.Count;
+            Library library = new(new BookRepository());
+            int initialBookCount = library.Books.ToList().Count;
 
             // Act
             library.AddBook(new Book());
 
             // Assert
-            Assert.Equal(initialBookCount + 1, library.Books.Count);
+            Assert.Equal(initialBookCount + 1, library.Books.ToList().Count);
         }
 
         [Fact]
         public void FindBookByTitle_ReturnsCorrectBook()
         {
             // Arrange
-            Library library = new();
+            Library library = new(new BookRepository());
             Book uploadedBook1 = new Book() { Title = "Stora boken om katter", ISBN = "883339111" };
             Book uploadedBook2 = new Book() { Title = "Stora boken om barn", ISBN = "8880001234" };
             Book uploadedBook3 = new Book() { Title = "Stora boken om böcker", ISBN = "1133333322" };
@@ -41,7 +41,7 @@ namespace LibraryBookingSystemTests
         public void FindBookByTitle_ThrowsException_IfBookNotFound()
         {
             // Arrange
-            Library library = new();
+            Library library = new(new BookRepository());
 
             // Act and assert
             Assert.ThrowsAny<Exception>(() => library.FindBookByTitle("stora boken om barn"));
@@ -51,7 +51,7 @@ namespace LibraryBookingSystemTests
         public void LoanBook_ReturnsALoanedBook()
         {
             // Arrange
-            Library library = new();
+            Library library = new(new BookRepository());
             Book book = new() { Title = "Joy at Work", ISBN = "11993322" };
             library.AddBook(book);
 
@@ -66,7 +66,7 @@ namespace LibraryBookingSystemTests
         public void LoanBook_IncreasedNumberOfLoanedBooksByOne()
         {
             // Arrange
-            Library library = new();
+            Library library = new(new BookRepository());
             Book book1 = new() { ISBN = "123" };
             Book book2 = new() { ISBN = "456" };
             library.AddBook(book1);
@@ -85,7 +85,7 @@ namespace LibraryBookingSystemTests
         public void LoanBook_ThrowsException_IfOnlyMatchingBookIsAlreadyLoaned()
         {
             // Arrange
-            Library library = new();
+            Library library = new(new BookRepository());
             Book book = new() { ISBN = "123" };
             library.AddBook(book);
             library.LoanBook(book.ISBN);
@@ -98,7 +98,7 @@ namespace LibraryBookingSystemTests
         public void LoanBook_CanLoanThreeTimes_IfThreeCopiesOfSameISBNExist()
         {
             // Arrange
-            Library library = new();
+            Library library = new(new BookRepository());
             Book targetBook = new() { ISBN = "123" };
             Book extraCopy1 = new() { ISBN = "123" };
             Book extraCopy2 = new() { ISBN = "123" };

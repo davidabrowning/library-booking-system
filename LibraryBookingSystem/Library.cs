@@ -2,6 +2,7 @@
 {
     public class Library
     {
-        public List<Book> Books { get; set; } = new();
+        private List<Book> _books = new();
+        public List<Book> Books { get { return _books.ToList(); } }
     }
 }

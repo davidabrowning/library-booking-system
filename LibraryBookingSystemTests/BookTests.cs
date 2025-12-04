@@ -61,6 +61,5 @@ namespace LibraryBookingSystemTests
             // Act and assert
             Assert.ThrowsAny<Exception>(() => book.Return());
         }
-        
     }
 }

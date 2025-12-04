@@ -14,6 +14,8 @@
         }
         public void Return()
         {
+            if (!IsLoaned)
+                throw new InvalidOperationException();
             IsLoaned = false;
         }
     }
